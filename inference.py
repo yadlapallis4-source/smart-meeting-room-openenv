@@ -12,12 +12,15 @@ from env.models import Action
 # ------------------------
 
 API_BASE_URL = os.getenv("API_BASE_URL", "https://router.huggingface.co/v1")
-MODEL_NAME = os.getenv("MODEL_NAME", "dummy-model")
-API_KEY = os.getenv("HF_TOKEN") or os.getenv("API_KEY")
+MODEL_NAME = os.getenv("MODEL_NAME", "Qwen/Qwen3-VL-30B-A3B-Instruct:novita")
+API_KEY = os.getenv("HF_TOKEN")
+
+if API_KEY is None:
+    raise ValueError("HF_TOKEN is not set")
 
 client = OpenAI(
     base_url=API_BASE_URL,
-    api_key=API_KEY,
+    api_key=API_KEY
 )
 
 
