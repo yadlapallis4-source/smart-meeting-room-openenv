@@ -3,7 +3,7 @@ from typing import List
 
 from openai import OpenAI
 
-from env.environment import MeetingRoomEnv
+from env.environment import SmartMeetingEnv
 from env.models import Action
 
 
@@ -12,22 +12,19 @@ from env.models import Action
 # ------------------------
 
 API_BASE_URL = os.getenv("API_BASE_URL", "https://router.huggingface.co/v1")
-MODEL_NAME = os.getenv("MODEL_NAME", "Qwen/Qwen3-VL-30B-A3B-Instruct:novita")
-API_KEY = os.getenv("HF_TOKEN")
-
-if API_KEY is None:
-    raise ValueError("HF_TOKEN is not set")
+MODEL_NAME = os.getenv("MODEL_NAME", "baseline")
+HF_TOKEN = os.getenv("HF_TOKEN")
+LOCAL_IMAGE_NAME = os.getenv("LOCAL_IMAGE_NAME")
 
 client = OpenAI(
     base_url=API_BASE_URL,
-    api_key=API_KEY
+    api_key=HF_TOKEN
 )
 
 
 # ------------------------
 # LOG FUNCTIONS (MANDATORY FORMAT)
 # ------------------------
-
 
 def log_start(task: str, env: str, model: str):
     print(f"[START] task={task} env={env} model={model}", flush=True)
@@ -41,10 +38,10 @@ def log_step(step: int, action: str, reward: float, done: bool, error):
     )
 
 
-def log_end(success: bool, steps: int, rewards: List[float]):
+def log_end(success: bool, steps: int, score: float, rewards: List[float]):
     rewards_str = ",".join(f"{r:.2f}" for r in rewards)
     print(
-        f"[END] success={str(success).lower()} steps={steps} rewards={rewards_str}",
+        f"[END] success={str(success).lower()} steps={steps} score={score:.2f} rewards={rewards_str}",
         flush=True,
     )
 
@@ -52,7 +49,6 @@ def log_end(success: bool, steps: int, rewards: List[float]):
 # ------------------------
 # SIMPLE AGENT (RULE BASED)
 # ------------------------
-
 
 def select_best_room(observation):
     request = observation.request
@@ -102,14 +98,14 @@ def select_best_room(observation):
 # MAIN
 # ------------------------
 
+def run(task_name="task_easy"):
+    env = SmartMeetingEnv(task_type=task_name)
 
-def run(task_name="easy"):
-    env = MeetingRoomEnv(task_type=task_name)
-
-    log_start(task_name, "meeting-room-env", MODEL_NAME)
+    log_start(task_name, "smart-meeting-room-openenv", MODEL_NAME)
 
     rewards = []
     step_count = 0
+    score = 0.0
 
     try:
         obs = env.reset()
@@ -140,15 +136,21 @@ def run(task_name="easy"):
             if done:
                 break
 
-        success = rewards[-1] > 0.5 if rewards else False
+        score = float(rewards[-1]) if rewards else 0.0
+        success = score > 0.5 
 
     except Exception as e:
+        if step_count == 0:
+            step_count = 1
         log_step(step_count, "noop()", 0.0, True, str(e))
         success = False
+        score = 0.0
+        if not rewards:
+            rewards.append(0.0)
 
-    log_end(success, step_count, rewards)
+    log_end(success, step_count, score, rewards)
 
 
 if __name__ == "__main__":
-    task = os.getenv("TASK_NAME", "easy")
+    task = os.getenv("TASK_NAME", "task_easy")
     run(task)

@@ -3,7 +3,7 @@ from .models import Observation, Action, State
 from .data import get_rooms, get_easy_request, get_medium_request, get_hard_request
 
 
-class MeetingRoomEnv:
+class SmartMeetingEnv:
     def __init__(self, task_type: str = "easy"):
         self.task_type = task_type
         self.state_obj: State = None
