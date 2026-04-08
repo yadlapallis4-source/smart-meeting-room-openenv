@@ -10,4 +10,4 @@ def get_task():
 
 
 def grader(action, state):
-    return 1.0
+    return 0.8
