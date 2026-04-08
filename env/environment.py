@@ -21,9 +21,12 @@ class SmartMeetingEnv:
         else:
             request = get_hard_request()
 
+        task_id = self.task_type
+        difficulty = task_id.split("_")[1] if "_" in task_id else task_id
+        
         self.state_obj = State(
             task_id=request.request_id,
-            difficulty=self.task_type,
+            difficulty=difficulty,
             request=request,
             available_rooms=rooms,
             step_count=0,

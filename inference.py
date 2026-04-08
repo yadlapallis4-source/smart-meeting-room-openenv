@@ -16,8 +16,8 @@ HF_TOKEN = os.getenv("HF_TOKEN")
 LOCAL_IMAGE_NAME = os.getenv("LOCAL_IMAGE_NAME")
 
 client = OpenAI(
-    base_url=os.environ.get("API_BASE_URL", "https://router.huggingface.co/v1"),
-    api_key=os.environ.get("API_KEY", "dummy_key")
+    api_key=os.environ["API_KEY"],
+    base_url=os.environ["API_BASE_URL"]
 )
 
 
@@ -106,7 +106,9 @@ def run(task_name="task_easy"):
     success = False
 
     try:
-        env = SmartMeetingEnv(task_type=task_name)
+        task_id = task_name
+        difficulty = task_id.split("_")[1]
+        env = SmartMeetingEnv(task_type=difficulty)
         obs = env.reset()
 
         while True:
