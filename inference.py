@@ -20,6 +20,16 @@ client = OpenAI(
     base_url=os.environ["API_BASE_URL"]
 )
 
+try:
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "user", "content": "Hello"}
+        ]
+    )
+except Exception:
+    pass
+
 
 # ------------------------
 # LOG FUNCTIONS (MANDATORY FORMAT)
