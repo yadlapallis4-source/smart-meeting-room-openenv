@@ -1,2 +1,2 @@
 def grader(action, state):
-    return 0.8
+    return {"score": 0.8}
