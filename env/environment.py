@@ -13,7 +13,7 @@ class MeetingRoomEnv:
         self._state = None
 
     # -------------------------
-    # RESET ENVIRONMENT
+    # RESET
     # -------------------------
     def reset(self):
         self._state = {
@@ -27,7 +27,7 @@ class MeetingRoomEnv:
         return dict(self._state)
 
     # -------------------------
-    # STEP FUNCTION (IMPORTANT)
+    # STEP (CRITICAL FIXED)
     # -------------------------
     def step(self, action=None):
 
@@ -37,7 +37,7 @@ class MeetingRoomEnv:
         self._state["step_count"] += 1
         self._state["last_action"] = action
 
-        # 🔥 REAL GRADING LOGIC (CRITICAL FIX)
+        #  USE GRADERS (NO HARDCODE)
         if self.task_type == "easy":
             reward = easy_grader(action, self._state)
 
@@ -47,20 +47,22 @@ class MeetingRoomEnv:
         else:
             reward = hard_grader(action, self._state)
 
-        # Mark done
+        #  ENSURE STRICT (0,1)
+        reward = max(0.01, min(0.99, float(reward)))
+
         done = True
         self._state["done"] = done
 
         return dict(self._state), reward, done, {}
 
     # -------------------------
-    # GET CURRENT STATE
+    # STATE
     # -------------------------
     def state(self):
         return dict(self._state) if self._state is not None else None
 
     # -------------------------
-    # DEFINE TASKS (CRITICAL)
+    # TASK DEFINITIONS
     # -------------------------
     def get_tasks(self):
         return [
@@ -78,7 +80,7 @@ class MeetingRoomEnv:
             },
             {
                 "id": "task_hard",
-                "description": "Select best room with constraints (capacity + projector + time)",
+                "description": "Select best room considering capacity, projector, and timing",
                 "difficulty": "hard",
                 "grader": hard_grader,
             },
