@@ -5,17 +5,17 @@ environment:
   entry_point: env.environment:MeetingRoomEnv
 
 tasks:
-  - id: task_easy
+  task_easy:
     description: Select a room based on capacity
     difficulty: easy
     grader: tasks.task_easy:grader
 
-  - id: task_medium
+  task_medium:
     description: Select a room based on capacity and equipment
     difficulty: medium
     grader: tasks.task_medium:grader
 
-  - id: task_hard
+  task_hard:
     description: Select a room based on multiple constraints
     difficulty: hard
     grader: tasks.task_hard:grader
