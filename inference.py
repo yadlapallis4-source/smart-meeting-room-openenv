@@ -11,13 +11,13 @@ from env.models import Action
 # CONFIG
 # ------------------------
 
-MODEL_NAME = os.environ["MODEL_NAME"]
+MODEL_NAME = os.environ.get("MODEL_NAME", "baseline")
 HF_TOKEN = os.getenv("HF_TOKEN")
 LOCAL_IMAGE_NAME = os.getenv("LOCAL_IMAGE_NAME")
 
 client = OpenAI(
-    base_url=os.environ["API_BASE_URL"],
-    api_key=os.environ["API_KEY"]
+    base_url=os.environ.get("API_BASE_URL", "https://router.huggingface.co/v1"),
+    api_key=os.environ.get("API_KEY", "dummy_key")
 )
 
 
@@ -98,15 +98,15 @@ def select_best_room(observation):
 # ------------------------
 
 def run(task_name="task_easy"):
-    env = SmartMeetingEnv(task_type=task_name)
-
     log_start(task_name, "smart-meeting-room-openenv", MODEL_NAME)
 
     rewards = []
     step_count = 0
     score = 0.0
+    success = False
 
     try:
+        env = SmartMeetingEnv(task_type=task_name)
         obs = env.reset()
 
         while True:
@@ -161,8 +161,8 @@ def run(task_name="task_easy"):
         score = 0.0
         if not rewards:
             rewards.append(0.0)
-
-    log_end(success, step_count, score, rewards)
+    finally:
+        log_end(success, step_count, score, rewards)
 
 
 if __name__ == "__main__":
