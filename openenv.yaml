@@ -1,9 +1,3 @@
-name: smart-meeting-room-openenv
-version: 1.0.0
-
-environment:
-  entry_point: env.environment:MeetingRoomEnv
-
 tasks:
   task_easy:
     entry_point: tasks.task_easy:get_task
@@ -16,10 +10,3 @@ tasks:
   task_hard:
     entry_point: tasks.task_hard:get_task
     grader: tasks.task_hard:grader
-
-metadata:
-  author: your-name
-  description: >
-    A real-world OpenEnv environment for meeting room allocation.
-    The agent must select the most appropriate room based on capacity,
-    equipment, accessibility, and preferences while minimizing resource waste.
