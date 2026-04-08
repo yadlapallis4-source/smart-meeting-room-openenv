@@ -11,8 +11,7 @@ from env.models import Action
 # CONFIG
 # ------------------------
 
-API_BASE_URL = os.getenv("API_BASE_URL", "https://router.huggingface.co/v1")
-MODEL_NAME = os.getenv("MODEL_NAME", "baseline")
+MODEL_NAME = os.environ["MODEL_NAME"]
 HF_TOKEN = os.getenv("HF_TOKEN")
 LOCAL_IMAGE_NAME = os.getenv("LOCAL_IMAGE_NAME")
 
@@ -115,16 +114,18 @@ def run(task_name="task_easy"):
 
             llm_text = "Selected based on constraints"
             try:
-                res = client.chat.completions.create(
+                response = client.chat.completions.create(
                     model=MODEL_NAME,
-                    messages=[{"role": "user", "content": "Help me pick a room."}]
+                    messages=[
+                        {"role": "user", "content": "Choose a valid action"}
+                    ]
                 )
-                if res and hasattr(res, "choices") and res.choices:
-                    content = res.choices[0].message.content
+                if response and hasattr(response, "choices") and response.choices:
+                    content = response.choices[0].message.content
                     if content:
                         llm_text = content
-            except Exception:
-                pass
+            except Exception as e:
+                print(f"API Error: {e}")
 
             room_id = select_best_room(obs)
 
