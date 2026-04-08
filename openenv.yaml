@@ -1,3 +1,9 @@
+name: smart-meeting-room-openenv
+version: 1.0.0
+
+environment:
+  entry_point: env.environment:MeetingRoomEnv
+
 tasks:
   task_easy:
     entry_point: tasks.task_easy:get_task
