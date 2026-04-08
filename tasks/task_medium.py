@@ -6,7 +6,12 @@ def get_task():
         "initial_state": {
             "attendees": 6,
             "needs_projector": True
-        }
+        },
+        "action_space": [
+            "select_room('R1')",
+            "select_room('R2')"
+        ],
+        "max_steps": 1
     }
 
 def grader(action, state):
