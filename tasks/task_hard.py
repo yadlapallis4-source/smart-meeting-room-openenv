@@ -2,12 +2,15 @@ def get_task():
     return {
         "id": "task_hard",
         "difficulty": "hard",
-        "description": "Simple task",
-        "initial_state": {},
-        "action_space": ["noop()"],
+        "description": "Select best room considering capacity, projector, and time slot",
+        "initial_state": {"capacity": 10, "projector": True, "time": "10AM"},
+        "action_space": ["select_room_A", "select_room_B"],
         "max_steps": 1,
     }
 
 
 def grader(action, state):
-    return 0.7
+    if action == "select_room_B":
+        return 0.85
+    else:
+        return 0.5

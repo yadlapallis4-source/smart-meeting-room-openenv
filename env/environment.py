@@ -8,62 +8,77 @@ class MeetingRoomEnv:
     def __init__(self, task_type="easy"):
         if task_type not in ["easy", "medium", "hard"]:
             task_type = "easy"
+
         self.task_type = task_type
         self._state = None
 
+    # -------------------------
+    # RESET ENVIRONMENT
+    # -------------------------
     def reset(self):
         self._state = {
             "task_id": f"task_{self.task_type}",
             "difficulty": self.task_type,
-            "description": "Simple",
+            "description": "Meeting room selection task",
             "step_count": 0,
             "max_steps": 1,
             "done": False,
         }
         return dict(self._state)
 
+    # -------------------------
+    # STEP FUNCTION (IMPORTANT)
+    # -------------------------
     def step(self, action=None):
+
         if self._state is None:
             self.reset()
 
         self._state["step_count"] += 1
         self._state["last_action"] = action
 
-        # ✅ Use correct grader
+        # 🔥 REAL GRADING LOGIC (CRITICAL FIX)
         if self.task_type == "easy":
-            score = easy_grader(action, self._state)
+            reward = easy_grader(action, self._state)
+
         elif self.task_type == "medium":
-            score = medium_grader(action, self._state)
+            reward = medium_grader(action, self._state)
+
         else:
-            score = hard_grader(action, self._state)
+            reward = hard_grader(action, self._state)
 
-        # ✅ Ensure score strictly between (0,1)
-        score = max(0.01, min(0.99, float(score)))
+        # Mark done
+        done = True
+        self._state["done"] = done
 
-        self._state["done"] = True
+        return dict(self._state), reward, done, {}
 
-        return dict(self._state), score, True, {}
-
+    # -------------------------
+    # GET CURRENT STATE
+    # -------------------------
     def state(self):
         return dict(self._state) if self._state is not None else None
 
+    # -------------------------
+    # DEFINE TASKS (CRITICAL)
+    # -------------------------
     def get_tasks(self):
         return [
             {
                 "id": "task_easy",
-                "description": "Simple",
+                "description": "Select correct room for 4 people",
                 "difficulty": "easy",
                 "grader": easy_grader,
             },
             {
                 "id": "task_medium",
-                "description": "Simple",
+                "description": "Select room with projector for 6 people",
                 "difficulty": "medium",
                 "grader": medium_grader,
             },
             {
                 "id": "task_hard",
-                "description": "Simple",
+                "description": "Select best room with constraints (capacity + projector + time)",
                 "difficulty": "hard",
                 "grader": hard_grader,
             },
