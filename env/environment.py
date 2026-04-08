@@ -26,11 +26,23 @@ class MeetingRoomEnv:
         if self._state is None:
             self.reset()
 
-        self._state["step_count"] = min(self._state["step_count"] + 1, 1)
+        self._state["step_count"] += 1
         self._state["last_action"] = action
+
+        # ✅ Use correct grader
+        if self.task_type == "easy":
+            score = easy_grader(action, self._state)
+        elif self.task_type == "medium":
+            score = medium_grader(action, self._state)
+        else:
+            score = hard_grader(action, self._state)
+
+        # ✅ Ensure score strictly between (0,1)
+        score = max(0.01, min(0.99, float(score)))
+
         self._state["done"] = True
 
-        return dict(self._state), 0.8, True, {}
+        return dict(self._state), score, True, {}
 
     def state(self):
         return dict(self._state) if self._state is not None else None
