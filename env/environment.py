@@ -68,6 +68,28 @@ class SmartMeetingEnv:
         return self.state_obj
 
     # -----------------------
+    # TASKS
+    # -----------------------
+    def get_tasks(self):
+        return [
+            {
+                "id": "task_easy",
+                "difficulty": "easy",
+                "description": "Select a room based on capacity"
+            },
+            {
+                "id": "task_medium",
+                "difficulty": "medium",
+                "description": "Select a room based on capacity and equipment"
+            },
+            {
+                "id": "task_hard",
+                "difficulty": "hard",
+                "description": "Select a room based on multiple constraints"
+            }
+        ]
+
+    # -----------------------
     # HELPERS
     # -----------------------
     def _find_room(self, room_id: str):
