@@ -7,15 +7,15 @@ environment:
 tasks:
   task_easy:
     entry_point: tasks.task_easy:get_task
-    grader: graders.grader_easy:grader
+    grader: grader_easy:grader
 
   task_medium:
     entry_point: tasks.task_medium:get_task
-    grader: graders.grader_medium:grader
+    grader: grader_medium:grader
 
   task_hard:
     entry_point: tasks.task_hard:get_task
-    grader: graders.grader_hard:grader
+    grader: grader_hard:grader
 
 metadata:
   author: your-name
