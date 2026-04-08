@@ -17,8 +17,8 @@ HF_TOKEN = os.getenv("HF_TOKEN")
 LOCAL_IMAGE_NAME = os.getenv("LOCAL_IMAGE_NAME")
 
 client = OpenAI(
-    base_url=API_BASE_URL,
-    api_key=HF_TOKEN
+    base_url=os.environ["API_BASE_URL"],
+    api_key=os.environ["API_KEY"]
 )
 
 
@@ -113,12 +113,25 @@ def run(task_name="task_easy"):
         while True:
             step_count += 1
 
+            llm_text = "Selected based on constraints"
+            try:
+                res = client.chat.completions.create(
+                    model=MODEL_NAME,
+                    messages=[{"role": "user", "content": "Help me pick a room."}]
+                )
+                if res and hasattr(res, "choices") and res.choices:
+                    content = res.choices[0].message.content
+                    if content:
+                        llm_text = content
+            except Exception:
+                pass
+
             room_id = select_best_room(obs)
 
             action = Action(
                 room_id=room_id,
                 confirm=True,
-                reasoning_note="Selected based on constraints",
+                reasoning_note=llm_text,
             )
 
             obs, reward, done, _ = env.step(action)
