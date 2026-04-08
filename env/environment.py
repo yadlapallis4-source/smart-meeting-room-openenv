@@ -26,12 +26,5 @@ class MeetingRoomEnv:
 
         return dict(self._state), 1.0, True, {}
 
-    def get_tasks(self):
-        return [
-            {"id": "task_easy", "difficulty": "easy", "description": "Simple"},
-            {"id": "task_medium", "difficulty": "medium", "description": "Simple"},
-            {"id": "task_hard", "difficulty": "hard", "description": "Simple"}
-        ]
-
     def state(self):
         return dict(self._state) if self._state is not None else None
