@@ -4,3 +4,6 @@ def get_task():
         "difficulty": "medium",
         "description": "Select a room based on capacity and equipment"
     }
+
+def grader(action, state):
+    return 1.0
