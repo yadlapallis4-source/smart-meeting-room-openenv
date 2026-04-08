@@ -71,23 +71,23 @@ class SmartMeetingEnv:
     # TASKS
     # -----------------------
     def get_tasks(self):
-        return [
-            {
-                "id": "task_easy",
-                "difficulty": "easy",
-                "description": "Select a room based on capacity"
-            },
-            {
-                "id": "task_medium",
-                "difficulty": "medium",
-                "description": "Select a room based on capacity and equipment"
-            },
-            {
-                "id": "task_hard",
-                "difficulty": "hard",
-                "description": "Select a room based on multiple constraints"
-            }
-        ]
+    return [
+        {
+            "id": "task_easy",
+            "difficulty": "easy",
+            "description": "Simple task"
+        },
+        {
+            "id": "task_medium",
+            "difficulty": "medium",
+            "description": "Simple task"
+        },
+        {
+            "id": "task_hard",
+            "difficulty": "hard",
+            "description": "Simple task"
+        }
+    ]
 
     # -----------------------
     # HELPERS
