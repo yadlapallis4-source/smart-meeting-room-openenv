@@ -8,17 +8,17 @@ tasks:
   task_easy:
     description: Select a room based on capacity
     difficulty: easy
-    grader: tasks.task_easy:grader
+    grader: graders.grader_easy:grader
 
   task_medium:
     description: Select a room based on capacity and equipment
     difficulty: medium
-    grader: tasks.task_medium:grader
+    grader: graders.grader_medium:grader
 
   task_hard:
     description: Select a room based on multiple constraints
     difficulty: hard
-    grader: tasks.task_hard:grader
+    grader: graders.grader_hard:grader
 
 metadata:
   author: your-name

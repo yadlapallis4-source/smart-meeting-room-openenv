@@ -16,3 +16,7 @@ def grade(request, room):
         return 0.8
     else:
         return 0.6
+
+def grader(action, state):
+    room = next((r for r in state.available_rooms if r.room_id == action.room_id), None)
+    return float(grade(state.request, room))
