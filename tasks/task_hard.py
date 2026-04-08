@@ -2,7 +2,7 @@ def get_task():
     return {
         "id": "task_hard",
         "difficulty": "hard",
-        "description": "Simple",
+        "description": "Simple task",
         "initial_state": {},
         "action_space": ["noop()"],
         "max_steps": 1,
@@ -10,4 +10,4 @@ def get_task():
 
 
 def grader(action, state):
-    return 0.5
+    return 0.7
