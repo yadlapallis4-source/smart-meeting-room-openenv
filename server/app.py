@@ -1,43 +1,57 @@
-from fastapi import FastAPI
-from env.environment import SmartMeetingEnv
-from env.models import Action
-import uvicorn
+try:
+    from fastapi import FastAPI
+    import uvicorn
+except Exception:
+    FastAPI = None
+    uvicorn = None
 
-app = FastAPI()
-env = SmartMeetingEnv()
+from env.environment import MeetingRoomEnv
+
+
+class _FallbackApp:
+    def get(self, _path):
+        def decorator(func):
+            return func
+
+        return decorator
+
+    def post(self, _path):
+        def decorator(func):
+            return func
+
+        return decorator
+
+
+app = FastAPI() if FastAPI is not None else _FallbackApp()
+env = MeetingRoomEnv()
+
 
 @app.get("/")
 def home():
-    return {"status": "Smart Meeting OpenEnv running"}
+    return {"status": "smart-meeting-room-openenv"}
+
 
 @app.post("/reset")
 def reset():
-    obs = env.reset()
-    return {
-        "message": "Environment reset successfully",
-        "task_id": obs.task_id
-    }
+    return env.reset()
+
 
 @app.post("/step")
 def step(action: dict):
-    try:
-        act = Action(**action)
-    except Exception as e:
-        return {"error": f"Invalid action: {str(e)}"}
+    state, reward, done, info = env.step(action)
+    return {
+        "state": state,
+        "reward": reward,
+        "done": done,
+        "info": info,
+    }
 
-    try:
-        obs, reward, done, info = env.step(act)
-        return {
-            "reward": float(reward),
-            "done": bool(done),
-            "task_id": obs.task_id,
-            "info": info if isinstance(info, dict) else {}
-        }
-    except Exception as e:
-        return {"error": str(e)}
 
 def main():
+    if uvicorn is None:
+        raise RuntimeError("uvicorn is not installed")
     uvicorn.run(app, host="0.0.0.0", port=7860)
+
 
 if __name__ == "__main__":
     main()

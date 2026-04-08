@@ -3,16 +3,3 @@ version: 1.0.0
 
 environment:
   entry_point: env.environment:MeetingRoomEnv
-
-tasks:
-  task_easy:
-    entry_point: tasks.task_easy:get_task
-    grader: tasks.task_easy:grader
-
-  task_medium:
-    entry_point: tasks.task_medium:get_task
-    grader: tasks.task_medium:grader
-
-  task_hard:
-    entry_point: tasks.task_hard:get_task
-    grader: tasks.task_hard:grader

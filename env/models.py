@@ -1,5 +1,18 @@
 from typing import List, Literal, Optional
-from pydantic import BaseModel, Field
+
+try:
+    from pydantic import BaseModel, Field
+except Exception:
+    class BaseModel:
+        def __init__(self, **data):
+            for key, value in data.items():
+                setattr(self, key, value)
+
+        def model_dump(self):
+            return dict(self.__dict__)
+
+    def Field(default=..., **kwargs):
+        return default
 
 
 class Room(BaseModel):

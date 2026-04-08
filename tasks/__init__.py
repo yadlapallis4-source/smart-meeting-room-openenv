@@ -1,1 +1,1 @@
-# tasks module
+# tasks package

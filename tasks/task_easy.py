@@ -2,10 +2,10 @@ def get_task():
     return {
         "id": "task_easy",
         "difficulty": "easy",
-        "description": "Simple task",
+        "description": "Simple",
         "initial_state": {},
         "action_space": ["noop()"],
-        "max_steps": 1,
+        "max_steps": 1
     }
 
 
