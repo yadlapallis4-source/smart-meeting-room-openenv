@@ -30,30 +30,29 @@ class MeetingRoomEnv:
         self._state["last_action"] = action
         self._state["done"] = True
 
-        return dict(self._state), 1.0, True, {}
+        return dict(self._state), 0.8, True, {}
 
     def state(self):
         return dict(self._state) if self._state is not None else None
 
-    # 🔥 ADD THIS INSIDE CLASS (correct indentation)
     def get_tasks(self):
         return {
             "task_easy": {
                 "id": "task_easy",
                 "description": "Simple",
                 "difficulty": "easy",
-                "grader": easy_grader
+                "grader": easy_grader,
             },
             "task_medium": {
                 "id": "task_medium",
                 "description": "Simple",
                 "difficulty": "medium",
-                "grader": medium_grader
+                "grader": medium_grader,
             },
             "task_hard": {
                 "id": "task_hard",
                 "description": "Simple",
                 "difficulty": "hard",
-                "grader": hard_grader
-            }
+                "grader": hard_grader,
+            },
         }
