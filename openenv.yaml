@@ -6,18 +6,15 @@ environment:
 
 tasks:
   task_easy:
-    description: Select a room based on capacity
-    difficulty: easy
+    entry_point: tasks.task_easy:get_task
     grader: graders.grader_easy:grader
 
   task_medium:
-    description: Select a room based on capacity and equipment
-    difficulty: medium
+    entry_point: tasks.task_medium:get_task
     grader: graders.grader_medium:grader
 
   task_hard:
-    description: Select a room based on multiple constraints
-    difficulty: hard
+    entry_point: tasks.task_hard:get_task
     grader: graders.grader_hard:grader
 
 metadata:
