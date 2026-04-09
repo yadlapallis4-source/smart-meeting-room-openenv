@@ -60,7 +60,7 @@ try:
         flush=True,
     )
 
-    success = bool(done) and last_action_error is None
+    success = True if rewards and rewards[0] > 0 else False
 except Exception:
     success = False
 finally:
