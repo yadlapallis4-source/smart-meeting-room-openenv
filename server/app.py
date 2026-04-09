@@ -11,16 +11,18 @@ def home():
     return {"status": "smart-meeting-room-openenv running"}
 
 
+# ✅ FIXED RESET (IMPORTANT)
 @app.post("/reset")
 def reset():
     state = env.reset()
-    return {"message": "Environment reset", "state": state}
+    return state  # ✅ MUST return raw state
 
 
+# ✅ FIXED STEP
 @app.post("/step")
 def step(action: str):
     state, reward, done, info = env.step(action)
-    return {"state": state, "reward": reward, "done": done, "info": info}
+    return {"state": state, "reward": float(reward), "done": done, "info": info}
 
 
 def main():
