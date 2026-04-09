@@ -2,19 +2,3 @@ name: smart-meeting-room-openenv
 
 environment:
   entry_point: env.environment:MeetingRoomEnv
-
-tasks:
-  task_easy:
-    description: Select room for 4 people
-    difficulty: easy
-    grader: tasks.task_easy:grader
-
-  task_medium:
-    description: Select room with projector
-    difficulty: medium
-    grader: tasks.task_medium:grader
-
-  task_hard:
-    description: Select best room with constraints
-    difficulty: hard
-    grader: tasks.task_hard:grader
