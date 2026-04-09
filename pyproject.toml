@@ -9,12 +9,12 @@ dependencies = [
     "uvicorn",
     "pydantic",
     "openai",
-    "openenv-core>=0.2.0"
+    "openenv>=0.2.0"
 ]
 
 [project.scripts]
 server = "server.app:main"
 
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
