@@ -1,12 +1,14 @@
+name: smart-meeting-room-openenv
+
+env:
+  entry_point: env.environment:MeetingRoomEnv
+
 tasks:
   - id: task_easy
-    file: tasks/task_easy.py
-    grader: grader
+    path: tasks/task_easy.py
 
   - id: task_medium
-    file: tasks/task_medium.py
-    grader: grader
+    path: tasks/task_medium.py
 
   - id: task_hard
-    file: tasks/task_hard.py
-    grader: grader
+    path: tasks/task_hard.py
