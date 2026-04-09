@@ -60,28 +60,3 @@ class MeetingRoomEnv:
     # -------------------------
     def state(self):
         return dict(self._state) if self._state is not None else None
-
-    # -------------------------
-    # TASK DEFINITIONS
-    # -------------------------
-    def get_tasks(self):
-        return [
-            {
-                "id": "task_easy",
-                "description": "Select correct room for 4 people",
-                "difficulty": "easy",
-                "grader": easy_grader,
-            },
-            {
-                "id": "task_medium",
-                "description": "Select room with projector for 6 people",
-                "difficulty": "medium",
-                "grader": medium_grader,
-            },
-            {
-                "id": "task_hard",
-                "description": "Select best room considering capacity, projector, and timing",
-                "difficulty": "hard",
-                "grader": hard_grader,
-            },
-        ]
