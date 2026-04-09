@@ -1,17 +1,17 @@
 def get_task():
     return {
         "id": "task_easy",
-        "description": "Select correct room for 4 people",
+        "description": "Select room for 4 people",
         "difficulty": "easy",
         "initial_state": {"capacity": 4},
-        "action_space": ["select_room_A", "select_room_B"],
+        "action_space": ["A", "B"],
         "max_steps": 1,
     }
 
 
 def grader(action, state):
-    if action == "select_room_A":
+    if action == "A":
         return 0.6
-    elif action == "select_room_B":
+    elif action == "B":
         return 0.3
     return 0.2

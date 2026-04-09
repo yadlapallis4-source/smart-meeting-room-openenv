@@ -26,9 +26,9 @@ class MeetingRoomEnv:
         }
         return dict(self._state)
 
-    # -------------------------
-    # STEP (CRITICAL FIXED)
-    # -------------------------
+    # ----
+    # STEP
+    # ----
     def step(self, action=None):
 
         if self._state is None:
