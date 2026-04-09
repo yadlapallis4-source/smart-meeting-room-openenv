@@ -5,65 +5,66 @@ from tasks.task_hard import grader as hard_grader
 
 class MeetingRoomEnv:
     def __init__(self, task_type=None):
-    if task_type is None:
-        task_type = "easy"
-    if task_type not in ["easy", "medium", "hard"]:
-        task_type = "easy"
+        if task_type is None:
+            task_type = "easy"
 
-    self.task_type = task_type
-    self._state = None
+        if task_type not in ["easy", "medium", "hard"]:
+            task_type = "easy"
 
-    def reset(self):
-        self._state = {
-            "task_id": f"task_{self.task_type}",
-            "difficulty": self.task_type,
-            "description": "Meeting room selection task",
-            "step_count": 0,
-            "max_steps": 1,
-            "done": False,
-        }
-        return dict(self._state)
+        self.task_type = task_type
+        self._state = None
 
-    def step(self, action=None):
-        if self._state is None:
-            self.reset()
+        def reset(self):
+            self._state = {
+                "task_id": f"task_{self.task_type}",
+                "difficulty": self.task_type,
+                "description": "Meeting room selection task",
+                "step_count": 0,
+                "max_steps": 1,
+                "done": False,
+            }
+            return dict(self._state)
 
-        self._state["step_count"] += 1
-        self._state["last_action"] = action
+        def step(self, action=None):
+            if self._state is None:
+                self.reset()
 
-        if self.task_type == "easy":
-            reward = easy_grader(action, self._state)
-        elif self.task_type == "medium":
-            reward = medium_grader(action, self._state)
-        else:
-            reward = hard_grader(action, self._state)
+            self._state["step_count"] += 1
+            self._state["last_action"] = action
 
-        self._state["done"] = True
-        return dict(self._state), float(reward), True, {}
+            if self.task_type == "easy":
+                reward = easy_grader(action, self._state)
+            elif self.task_type == "medium":
+                reward = medium_grader(action, self._state)
+            else:
+                reward = hard_grader(action, self._state)
 
-    def state(self):
-        state = dict(self._state)
-        done = state.pop("done")   
-        return state, float(reward), done, {}
+            self._state["done"] = True
+            return dict(self._state), float(reward), True, {}
 
-    def get_tasks(self):
-        return [
-            {
-                "id": "task_easy",
-                "description": "Select room for 4 people",
-                "difficulty": "easy",
-                "grader": easy_grader,
-            },
-            {
-                "id": "task_medium",
-                "description": "Select room with projector",
-                "difficulty": "medium",
-                "grader": medium_grader,
-            },
-            {
-                "id": "task_hard",
-                "description": "Select best room with constraints",
-                "difficulty": "hard",
-                "grader": hard_grader,
-            },
-        ]
+        def state(self):
+            state = dict(self._state)
+            done = state.pop("done")
+            return state, float(reward), done, {}
+
+        def get_tasks(self):
+            return [
+                {
+                    "id": "task_easy",
+                    "description": "Select room for 4 people",
+                    "difficulty": "easy",
+                    "grader": easy_grader,
+                },
+                {
+                    "id": "task_medium",
+                    "description": "Select room with projector",
+                    "difficulty": "medium",
+                    "grader": medium_grader,
+                },
+                {
+                    "id": "task_hard",
+                    "description": "Select best room with constraints",
+                    "difficulty": "hard",
+                    "grader": hard_grader,
+                },
+            ]
