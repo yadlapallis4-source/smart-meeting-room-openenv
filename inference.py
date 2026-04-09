@@ -8,7 +8,12 @@ HF_TOKEN = os.getenv("HF_TOKEN")
 
 BENCHMARK = "smart-meeting-room-openenv"
 TASK_NAME = os.getenv("TASK_NAME", "task_easy")
-ACTION_STR = "noop()"
+if TASK_NAME == "task_easy":
+    ACTION_STR = "A"
+elif TASK_NAME == "task_medium":
+    ACTION_STR = "B"
+else:
+    ACTION_STR = "B"
 
 steps = 0
 rewards = []
@@ -20,10 +25,7 @@ try:
     if HF_TOKEN is None:
         raise ValueError("HF_TOKEN environment variable is required")
 
-    client = OpenAI(
-        base_url=API_BASE_URL,
-        api_key=HF_TOKEN
-    )
+    client = OpenAI(base_url=API_BASE_URL, api_key=HF_TOKEN)
 
     try:
         client.chat.completions.create(
@@ -36,7 +38,9 @@ try:
 
     from env.environment import MeetingRoomEnv
 
-    difficulty = TASK_NAME.split("task_", 1)[1] if TASK_NAME.startswith("task_") else TASK_NAME
+    difficulty = (
+        TASK_NAME.split("task_", 1)[1] if TASK_NAME.startswith("task_") else TASK_NAME
+    )
     env = MeetingRoomEnv(task_type=difficulty)
     env.reset()
     state, reward, done, info = env.step(ACTION_STR)
@@ -61,4 +65,7 @@ except Exception:
     success = False
 finally:
     rewards_text = ",".join(f"{value:.2f}" for value in rewards)
-    print(f"[END] success={str(success).lower()} steps={steps} rewards={rewards_text}", flush=True)
+    print(
+        f"[END] success={str(success).lower()} steps={steps} rewards={rewards_text}",
+        flush=True,
+    )
