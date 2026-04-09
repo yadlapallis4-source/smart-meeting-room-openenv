@@ -10,8 +10,6 @@ def get_task():
 
 
 def grader(action, state):
-    if action == "B":
-        return 0.9
-    elif action == "A":
-        return 0.5
-    return 0.3
+    if action:
+        return 0.6
+    return 0.4
