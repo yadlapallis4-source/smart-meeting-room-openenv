@@ -4,12 +4,14 @@ from tasks.task_hard import grader as hard_grader
 
 
 class MeetingRoomEnv:
+    def __init__(self, task_type=None):
+    if task_type is None:
+        task_type = "easy"
+    if task_type not in ["easy", "medium", "hard"]:
+        task_type = "easy"
 
-    def __init__(self, task_type="easy"):
-        if task_type not in ["easy", "medium", "hard"]:
-            task_type = "easy"
-        self.task_type = task_type
-        self._state = None
+    self.task_type = task_type
+    self._state = None
 
     def reset(self):
         self._state = {
@@ -36,13 +38,13 @@ class MeetingRoomEnv:
         else:
             reward = hard_grader(action, self._state)
 
-        done = True
         self._state["done"] = True
-
-        return dict(self._state), float(reward), done, {}
+        return dict(self._state), float(reward), True, {}
 
     def state(self):
-        return dict(self._state) if self._state is not None else None
+        state = dict(self._state)
+        done = state.pop("done")   
+        return state, float(reward), done, {}
 
     def get_tasks(self):
         return [
