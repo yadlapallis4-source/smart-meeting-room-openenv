@@ -2,3 +2,11 @@ name: smart-meeting-room-openenv
 
 environment:
   entry_point: env.environment:MeetingRoomEnv
+
+tasks:
+  - id: T1
+    description: Easy meeting room selection
+  - id: T2
+    description: Medium meeting room selection
+  - id: T3
+    description: Hard meeting room selection
