@@ -4,9 +4,6 @@ environment:
   entry_point: env.environment:MeetingRoomEnv
 
 tasks:
-  - id: T1
-    description: Easy meeting room selection
-  - id: T2
-    description: Medium meeting room selection
-  - id: T3
-    description: Hard meeting room selection
+  - id: task_easy
+  - id: task_medium
+  - id: task_hard
