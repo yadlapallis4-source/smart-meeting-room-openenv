@@ -7,14 +7,14 @@ tasks:
   - id: task_easy
     description: Select room for 4 people
     difficulty: easy
-    grader: tasks.task_easy:grader
+    grader: graders.grader_easy:grader
 
   - id: task_medium
     description: Select room with projector
     difficulty: medium
-    grader: tasks.task_medium:grader
+    grader: graders.grader_medium:grader
 
   - id: task_hard
     description: Select optimal room
     difficulty: hard
-    grader: tasks.task_hard:grader
+    grader: graders.grader_hard:grader
