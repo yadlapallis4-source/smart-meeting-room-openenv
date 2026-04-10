@@ -1,6 +1,6 @@
-from graders.grader_easy import grader as easy_grader
-from graders.grader_medium import grader as medium_grader
-from graders.grader_hard import grader as hard_grader
+from tasks.task_easy import grader as easy_grader
+from tasks.task_medium import grader as medium_grader
+from tasks.task_hard import grader as hard_grader
 
 
 class MeetingRoomEnv:
@@ -26,14 +26,6 @@ class MeetingRoomEnv:
         }
         return dict(self._state)
 
-    def get_tasks(self):
-        return [
-            {"id": "task_easy", "grader": easy_grader},
-            {"id": "task_medium", "grader": medium_grader},
-            {"id": "task_hard", "grader": hard_grader},
-        ]
-
-    # ✅ FIX: step is OUTSIDE get_tasks
     def step(self, action=None):
         if self._state is None:
             self.reset()
