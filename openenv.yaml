@@ -15,6 +15,6 @@ tasks:
     grader: tasks.task_medium:grader
 
   - id: task_hard
-    description: Select optimal room with constraints
+    description: Select optimal room
     difficulty: hard
     grader: tasks.task_hard:grader

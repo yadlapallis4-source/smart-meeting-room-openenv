@@ -1,5 +1,5 @@
-
 class MeetingRoomEnv:
+
     def __init__(self, task_type=None):
         if task_type is None:
             task_type = "easy"
