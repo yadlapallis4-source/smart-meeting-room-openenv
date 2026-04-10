@@ -5,4 +5,12 @@ def grader(action, state):
     else:
         return 0.4
 
+def get_task():
+    return {
+        "id": "task_hard",
+        "description": "Select optimal room",
+        "difficulty": "hard",
+        "grader": grader
+    }
+
 
