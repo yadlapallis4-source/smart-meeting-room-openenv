@@ -33,11 +33,16 @@ def run_episode():
                     ]
                 )
 
-                action = response.choices[0].message.content or "A"
-                action = str(action).strip().upper()
+                content = response.choices[0].message.content or ""
+                content = content.upper()
 
-                # Fallback to simple default if invalid
-                if action not in ["A", "B", "C"]:
+                if "A" in content:
+                    action = "A"
+                elif "B" in content:
+                    action = "B"
+                elif "C" in content:
+                    action = "C"
+                else:
                     action = "A"
 
             except Exception as llm_error:
@@ -46,9 +51,9 @@ def run_episode():
             # Step environment
             next_state, reward, done, info = env.step(action)
 
-            print(f"[STEP] action={action}")
+            print(f"[STEP] action={action} reward={reward} done={done}")
 
-            state = next_state
+            break
 
     except Exception as e:
         print(f"[ERROR] {str(e)}")
