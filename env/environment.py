@@ -1,7 +1,6 @@
-from tasks.task_easy import grader as easy_grader
-from tasks.task_medium import grader as medium_grader
-from tasks.task_hard import grader as hard_grader
-
+from graders.grader_easy import grader as easy_grader
+from graders.grader_medium import grader as medium_grader
+from graders.grader_hard import grader as hard_grader
 
 class MeetingRoomEnv:
 
