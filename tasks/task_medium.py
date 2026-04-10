@@ -10,6 +10,7 @@ def get_task():
 
 
 def grader(action, state):
-    if action and "projector" in str(action).lower():
+    # correct answer = "B"
+    if str(action).upper() == "B":
         return 0.7
     return 0.3
