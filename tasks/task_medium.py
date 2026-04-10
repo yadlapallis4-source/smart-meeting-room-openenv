@@ -1,6 +1,5 @@
 def grader(action, state):
     action = str(action).strip().upper()
-
     needs_projector = state.get("projector", False)
 
     if action == "B" and needs_projector:
@@ -13,9 +12,7 @@ def grader(action, state):
 
 def get_task():
     return {
-        "task_id": "T2",
+        "id": "task_medium",
         "description": "Select optimal room with projector",
         "grader": grader
     }
-
-
