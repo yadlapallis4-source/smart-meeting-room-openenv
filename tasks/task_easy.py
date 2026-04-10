@@ -1,15 +1,18 @@
-def grader(action, state):
-    action = str(action).strip().upper()
+def grader(action, state) -> float:
+    try:
+        action = str(action).strip().upper()
 
-    # Example logic using state
-    attendees = state.get("attendees", 0)
+        # Example logic using state
+        attendees = state.get("attendees", 0)
 
-    if action == "A" and attendees <= 4:
-        return 0.85
-    elif action == "B":
-        return 0.5
-    else:
-        return 0.25
+        if action == "A" and attendees <= 4:
+            return 0.85
+        elif action == "B":
+            return 0.5
+        else:
+            return 0.25
+    except:
+        return 0.0
 
 
 def get_task():

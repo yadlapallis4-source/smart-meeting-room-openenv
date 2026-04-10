@@ -1,13 +1,16 @@
-def grader(action, state):
-    action = str(action).strip().upper()
-    needs_projector = state.get("projector", False)
+def grader(action, state) -> float:
+    try:
+        action = str(action).strip().upper()
+        needs_projector = state.get("projector", False)
 
-    if action == "B" and needs_projector:
-        return 0.8
-    elif action == "A":
-        return 0.55
-    else:
-        return 0.35
+        if action == "B" and needs_projector:
+            return 0.8
+        elif action == "A":
+            return 0.55
+        else:
+            return 0.35
+    except:
+        return 0.0
 
 
 def get_task():

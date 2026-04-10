@@ -4,6 +4,9 @@ FROM python:3.10-slim
 # Set working directory
 WORKDIR /app
 
+# Set PYTHONPATH
+ENV PYTHONPATH=/app
+
 # Copy project files
 COPY . /app
 
