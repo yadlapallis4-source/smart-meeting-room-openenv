@@ -1,8 +1,15 @@
 def grader(action, state):
     action = str(action).strip().upper()
-    if action == "A":
-        return 0.8
-    return 0.3
+
+    # Example logic using state
+    attendees = state.get("attendees", 0)
+
+    if action == "A" and attendees <= 4:
+        return 0.85
+    elif action == "B":
+        return 0.5
+    else:
+        return 0.25
 
 
 def get_task():
