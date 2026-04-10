@@ -1,6 +1,6 @@
-from tasks.task_easy import grader as easy_grader
-from tasks.task_medium import grader as medium_grader
-from tasks.task_hard import grader as hard_grader
+from graders.grader_easy import grader as easy_grader
+from graders.grader_medium import grader as medium_grader
+from graders.grader_hard import grader as hard_grader
 
 
 class MeetingRoomEnv:
@@ -28,24 +28,9 @@ class MeetingRoomEnv:
 
     def get_tasks(self):
         return [
-            {
-                "id": "task_easy",
-                "description": "Select room for 4 people",
-                "difficulty": "easy",
-                "grader": easy_grader,
-            },
-            {
-                "id": "task_medium",
-                "description": "Select room with projector",
-                "difficulty": "medium",
-                "grader": medium_grader,
-            },
-            {
-                "id": "task_hard",
-                "description": "Select optimal room",
-                "difficulty": "hard",
-                "grader": hard_grader,
-            },
+            {"id": "task_easy", "grader": easy_grader},
+            {"id": "task_medium", "grader": medium_grader},
+            {"id": "task_hard", "grader": hard_grader},
         ]
 
     # ✅ FIX: step is OUTSIDE get_tasks
@@ -64,8 +49,6 @@ class MeetingRoomEnv:
             reward = hard_grader(action, self._state)
 
         done = True
+        self._state["done"] = done
 
-        state = dict(self._state)
-        state.pop("done", None)
-
-        return state, float(reward), done, {}
+        return dict(self._state), float(reward), done, {}

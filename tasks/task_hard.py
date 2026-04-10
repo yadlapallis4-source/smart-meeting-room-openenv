@@ -7,10 +7,3 @@ def get_task():
         "action_space": ["A", "B"],
         "max_steps": 1,
     }
-
-
-def grader(action, state):
-    # correct answer = "A"
-    if str(action).upper() == "A":
-        return 0.6
-    return 0.4

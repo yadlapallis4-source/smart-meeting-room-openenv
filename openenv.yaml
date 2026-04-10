@@ -1,9 +1,10 @@
 name: smart-meeting-room-openenv
+version: 1.0.0
 
 environment:
   entry_point: env.environment:MeetingRoomEnv
 
 tasks:
-  - id: task_easy
-  - id: task_medium
-  - id: task_hard
+  - task_easy
+  - task_medium
+  - task_hard
