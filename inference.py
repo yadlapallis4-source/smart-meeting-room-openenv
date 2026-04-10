@@ -28,6 +28,8 @@ def run_episode():
                 ]
             )
 
+            print(f"[DEBUG] LLM_RESPONSE={response.choices[0].message.content}")
+
             content = response.choices[0].message.content or ""
             content = content.upper()
 
@@ -40,7 +42,8 @@ def run_episode():
             else:
                 action = "A"
 
-        except:
+        except Exception as e:
+            print(f"[ERROR] LLM FAILED: {str(e)}")
             action = "A"
 
         # STEP ENVIRONMENT
