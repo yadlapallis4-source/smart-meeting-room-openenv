@@ -1,11 +1,7 @@
-def get_task():
-    return {
-        "id": "task_hard",
-        "description": "Select optimal room with constraints",
-        "difficulty": "hard",
-        "initial_state": {"capacity": 10, "projector": True, "time": "10AM"},
-        "action_space": ["A", "B"],
-        "max_steps": 1,
-    }
+def grader(action, state):
+    action = str(action).strip().upper()
+    if action == "A":
+        return 0.6
+    return 0.4
 
 

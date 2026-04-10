@@ -1,6 +1,5 @@
 
 class MeetingRoomEnv:
-
     def __init__(self, task_type=None):
         if task_type is None:
             task_type = "easy"
@@ -22,15 +21,12 @@ class MeetingRoomEnv:
         }
         return dict(self._state)
 
-    
-    
-    def get_tasks(self):
-        import tasks.task_easy as easy
-        import tasks.task_medium as medium
-        import tasks.task_hard as hard
+    def step(self, action=None):
+        if self._state is None:
+            self.reset()
 
-        return [
-            easy.get_task(),
-            medium.get_task(),
-            hard.get_task()
-        ]
+        self._state["step_count"] += 1
+        self._state["last_action"] = action
+        self._state["done"] = True
+
+        return dict(self._state), 0.5, True, {}
