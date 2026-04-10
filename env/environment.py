@@ -1,6 +1,3 @@
-from graders.grader_easy import grader as easy_grader
-from graders.grader_medium import grader as medium_grader
-from graders.grader_hard import grader as hard_grader
 
 class MeetingRoomEnv:
 
@@ -25,13 +22,7 @@ class MeetingRoomEnv:
         }
         return dict(self._state)
 
-    def step(self, action=None):
-        if self.task_type == "easy":
-            reward = easy_grader(action, self._state)
-        elif self.task_type == "medium":
-            reward = medium_grader(action, self._state)
-        else:
-            reward = hard_grader(action, self._state)
+    
     
     def get_tasks(self):
         import tasks.task_easy as easy
