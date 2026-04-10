@@ -48,25 +48,24 @@ class MeetingRoomEnv:
             },
         ]
 
-        def step(self, action=None):
-            if self._state is None:
-                self.reset()
+    # ✅ FIX: step is OUTSIDE get_tasks
+    def step(self, action=None):
+        if self._state is None:
+            self.reset()
 
-            self._state["step_count"] += 1
-            self._state["last_action"] = action
+        self._state["step_count"] += 1
+        self._state["last_action"] = action
 
-            # Apply correct grader
-            if self.task_type == "easy":
-                reward = easy_grader(action, self._state)
-            elif self.task_type == "medium":
-                reward = medium_grader(action, self._state)
-            else:
-                reward = hard_grader(action, self._state)
+        if self.task_type == "easy":
+            reward = easy_grader(action, self._state)
+        elif self.task_type == "medium":
+            reward = medium_grader(action, self._state)
+        else:
+            reward = hard_grader(action, self._state)
 
-            done = True
+        done = True
 
-            # Remove done from state (important)
-            state = dict(self._state)
-            state.pop("done", None)
+        state = dict(self._state)
+        state.pop("done", None)
 
-            return state, float(reward), done, {}
+        return state, float(reward), done, {}
