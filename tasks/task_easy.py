@@ -1,26 +1,14 @@
 def grader(action, state):
-    """Easy: Check if room capacity meets requirement (no projector needed)"""
-    try:
-        action = str(action).strip().upper()
-        rooms = state.get("rooms", [])
-        req = state.get("requirements", {})
+    action = str(action).strip().upper()
+    if action == "A":
+        return 0.8
+    return 0.3
 
-        for room in rooms:
-            if room["id"] == action:
-                # Easy: only check capacity
-                if room["capacity"] >= req.get("people", 0):
-                    return 1.0
-                else:
-                    return 0.2
-        return 0.0
-    except:
-        return 0.0
 
 def get_task():
     return {
-        "id": "task_easy",
-        "description": "Select room with sufficient capacity (4+ people)",
-        "difficulty": "easy",
+        "task_id": "T1",
+        "description": "Select the best meeting room",
         "grader": grader
     }
 
