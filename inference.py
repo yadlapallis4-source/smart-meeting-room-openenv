@@ -3,17 +3,14 @@ from openai import OpenAI
 from env.environment import MeetingRoomEnv
 
 # ENV VARIABLES
-base_url = os.environ["API_BASE_URL"]
-api_key = os.environ["API_KEY"]
-
-client = OpenAI(base_url=base_url, api_key=api_key)
+client = OpenAI(base_url=os.environ["API_BASE_URL"], api_key=os.environ["API_KEY"])
 
 
 def run_episode():
     env = MeetingRoomEnv()
     state = env.reset()
 
-    print("[START]")
+    print("[START]", flush=True)
 
     try:
         # ONE STEP ONLY (IMPORTANT)
@@ -28,7 +25,7 @@ def run_episode():
                 ]
             )
 
-            print(f"[DEBUG] LLM_RESPONSE={response.choices[0].message.content}")
+            print(f"[DEBUG] LLM_RESPONSE={response.choices[0].message.content}", flush=True)
 
             content = response.choices[0].message.content or ""
             content = content.upper()
@@ -43,20 +40,20 @@ def run_episode():
                 action = "A"
 
         except Exception as e:
-            print(f"[ERROR] LLM FAILED: {str(e)}")
+            print(f"[ERROR] LLM FAILED: {str(e)}", flush=True)
             action = "A"
 
         # STEP ENVIRONMENT
         next_state, reward, done, info = env.step(action)
 
         # EXACT FORMAT (CRITICAL)
-        print(f"[STEP] action={action} reward={reward} done={done}")
+        print(f"[STEP] action={action} reward={float(reward):.2f} done={str(done).lower()}", flush=True)
 
     except Exception as e:
-        print(f"[ERROR] {str(e)}")
+        print(f"[ERROR] {str(e)}", flush=True)
 
     finally:
-        print("[END]")
+        print("[END]", flush=True)
 
 
 if __name__ == "__main__":

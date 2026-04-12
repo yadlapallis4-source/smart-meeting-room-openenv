@@ -6,13 +6,16 @@ def grader(action, state) -> float:
         needs_projector = state.get("projector", False)
 
         if action == "C" and attendees >= 5 and needs_projector:
-            return 0.75
+            raw_score = 0.75
         elif action == "B":
-            return 0.5
+            raw_score = 0.5
         else:
-            return 0.2
+            raw_score = 0.2
     except:
-        return 0.0
+        raw_score = 0.0
+
+    final_score = max(0.01, min(0.99, float(raw_score)))
+    return final_score
 
 
 def get_task():
