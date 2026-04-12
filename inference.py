@@ -4,6 +4,8 @@ from env.environment import MeetingRoomEnv
 
 # ENV VARIABLES
 client = OpenAI(base_url=os.environ["API_BASE_URL"], api_key=os.environ["API_KEY"])
+model_name = os.environ.get("MODEL_NAME", "gpt-4o-mini")
+hf_token = os.environ.get("HF_TOKEN", "")
 
 
 def run_episode():
