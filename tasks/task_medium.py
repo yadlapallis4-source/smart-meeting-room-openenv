@@ -1,4 +1,4 @@
-def grader(action, state) -> float:
+def grader(state, action, reward, next_state):
     try:
         action = str(action).strip().upper()
         needs_projector = state.get("projector", False)
